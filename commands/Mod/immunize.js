@@ -1,17 +1,17 @@
 const request = require('superagent');
 
 exports.run = async (client, msg) => {
-    let i = 0;
-    const res = await request.get('https://bans.discordlist.net/api').accept('json');
-    const banlist = JSON.parse(`[${res.text.replace(/\[|\]/g, '')}]`);
-    const bans = await msg.guild.fetchBans();
-    banlist.filter(ban => /^[0-9]+$/.test(ban)).forEach((ban) => {
-        if(!bans.has(ban)) {
-            msg.guild.ban(ban).catch(console.error);
-            i++;
-        }
-    });
-    msg.channel.sendMessage(`Immunized against ${i} new threats.`);
+	let i = 0;
+	const res = await request.get('https://bans.discordlist.net/api').accept('json');
+	const banlist = JSON.parse(`[${res.text.replace(/\[|\]/g, '')}]`);
+	const bans = await msg.guild.fetchBans();
+	banlist.filter(ban => /^[0-9]+$/.test(ban)).forEach((ban) => {
+		if (!bans.has(ban)) {
+			msg.guild.ban(ban).catch(console.error);
+			i++;
+		}
+	});
+	msg.channel.sendMessage(`Immunized against ${i} new threats.`);
 };
 
 exports.conf = {
