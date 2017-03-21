@@ -1,0 +1,12 @@
+
+bwd/
+
+node_modules/
+
+\.vscode/
+
+config\.json
+
+commands/Emergency/kickstart\.js
+
+events/presenceUpdate\.js
