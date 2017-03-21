@@ -6,10 +6,10 @@ exports.run = async (client, msg) => {
     const banlist = JSON.parse(`[${res.text.replace(/\[|\]/g, '')}]`);
     const bans = await msg.guild.fetchBans();
     banlist.filter(ban => /^[0-9]+$/.test(ban)).forEach((ban) => {
-        if(!bans.has(ban)) i++;
-    });
-    banlist.filter(ban => /^[0-9]+$/.test(ban)).forEach((ban) => {
-        if(!bans.has(ban)) msg.guild.ban(ban).catch(console.error);
+        if(!bans.has(ban)) {
+            msg.guild.ban(ban).catch(console.error);
+            i++;
+        }
     });
     msg.channel.sendMessage(`Immunized against ${i} new threats.`);
 };
