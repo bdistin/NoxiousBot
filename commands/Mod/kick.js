@@ -6,12 +6,12 @@ exports.run = (client, msg, [user, ...reason]) => {
 	if (!confs.logChannel) return msg.channel.sendMessage('You must set the logChannel conf to use this command.');
 
 	const embed = new RichEmbed()
-			.setColor((200 * 256 * 256) + (100 * 256))
-			.setAuthor(`${user.username} #${user.discriminator} [${user.id}]`, user.avatarURL)
-			.setTimestamp()
-			.setFooter('Kick', client.user.avatarURL)
-			.addField('__**Responsible Mod**__', `${msg.author.username} #${msg.author.discriminator}`)
-			.addField('__**Reason**__', `${reason.join(' ')}\n\u200b`);
+		.setColor((200 * 256 * 256) + (100 * 256))
+		.setAuthor(`${user.username} #${user.discriminator} [${user.id}]`, user.avatarURL)
+		.setTimestamp()
+		.setFooter('Kick', client.user.avatarURL)
+		.addField('__**Responsible Mod**__', `${msg.author.username} #${msg.author.discriminator}`)
+		.addField('__**Reason**__', `${reason.join(' ')}\n\u200b`);
 	if (!msg.guild.member(user).roles.exists('name', confs.modRole) && !msg.guild.member(user).roles.exists('name', confs.adminRole) && user.id !== client.user.id) {
 		return msg.guild.member(user).kick()
 			.then(() => client.channels.get(confs.logChannel).sendEmbed(embed))

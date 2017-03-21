@@ -6,11 +6,11 @@ exports.run = (client, msg, [user, ...reason]) => {
 	if (!confs.logChannel) return msg.channel.sendMessage('You must set the logChannel conf to use this command.');
 
 	const embed = new RichEmbed()
-			.setColor(200 * 256 * 256)
-			.setTimestamp()
-			.setFooter('Ban', client.user.avatarURL)
-			.addField('__**Responsible Mod**__', `${msg.author.username} #${msg.author.discriminator}`)
-			.addField('__**Reason**__', `${reason.join(' ')}\n\u200b`);
+		.setColor(200 * 256 * 256)
+		.setTimestamp()
+		.setFooter('Ban', client.user.avatarURL)
+		.addField('__**Responsible Mod**__', `${msg.author.username} #${msg.author.discriminator}`)
+		.addField('__**Reason**__', `${reason.join(' ')}\n\u200b`);
 
 	if (typeof user === 'string') {
 		if (/^<@!?\d+>$/.test(user)) user = /\d+/.exec(user)[0];
@@ -21,8 +21,8 @@ exports.run = (client, msg, [user, ...reason]) => {
 	} else if (!msg.guild.member(user).roles.exists('name', confs.modRole) && !msg.guild.member(user).roles.exists('name', confs.adminRole) && user.id !== client.user.id) {
 		embed.setAuthor(`${user.username} #${user.discriminator} [${user.id}]`, user.avatarURL);
 		return msg.guild.member(user).ban()
-				.then(() => client.channels.get(confs.logChannel).sendEmbed(embed))
-				.catch(err => msg.reply(`There was an error trying to ban ${user.username}: ${err}`));
+			.then(() => client.channels.get(confs.logChannel).sendEmbed(embed))
+			.catch(err => msg.reply(`There was an error trying to ban ${user.username}: ${err}`));
 	} else {
 		return msg.channel.sendMessage('Say What?!?');
 	}
