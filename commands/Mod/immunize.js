@@ -7,7 +7,7 @@ exports.run = async (client, msg) => {
 	const bans = await msg.guild.fetchBans();
 	banlist.filter(ban => /^[0-9]+$/.test(ban)).forEach((ban) => {
 		if (!bans.has(ban)) {
-			msg.guild.ban(ban).catch(console.error);
+			msg.guild.ban(ban, { reason: 'DiscordList Immunized' }).catch(console.error);
 			i++;
 		}
 	});
@@ -16,7 +16,7 @@ exports.run = async (client, msg) => {
 
 exports.conf = {
 	enabled: true,
-	guildOnly: true,
+	runIn: ['text'],
 	aliases: [''],
 	permLevel: 2,
 	botPerms: ['BAN_MEMBERS'],

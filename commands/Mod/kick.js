@@ -1,6 +1,6 @@
 const { RichEmbed } = require('discord.js');
 
-exports.run = (client, msg, [user, ...reason]) => {
+exports.run = async (client, msg, [user, ...reason]) => {
 	const confs = client.funcs.confs.get(msg.guild);
 
 	if (!confs.logChannel) return msg.channel.sendMessage('You must set the logChannel conf to use this command.');
@@ -13,7 +13,7 @@ exports.run = (client, msg, [user, ...reason]) => {
 		.addField('__**Responsible Mod**__', `${msg.author.username} #${msg.author.discriminator}`)
 		.addField('__**Reason**__', `${reason.join(' ')}\n\u200b`);
 	if (!msg.guild.member(user).roles.exists('name', confs.modRole) && !msg.guild.member(user).roles.exists('name', confs.adminRole) && user.id !== client.user.id) {
-		return msg.guild.member(user).kick()
+		return msg.guild.member(user).kick(reason.join(' '))
 			.then(() => client.channels.get(confs.logChannel).sendEmbed(embed))
 			.catch(err => msg.reply(`There was an error trying to kick ${user.username}: ${err}`));
 	} else {
@@ -23,7 +23,7 @@ exports.run = (client, msg, [user, ...reason]) => {
 
 exports.conf = {
 	enabled: true,
-	guildOnly: true,
+	runIn: ['text'],
 	aliases: ['k'],
 	permLevel: 2,
 	botPerms: ['KICK_MEMBERS'],
@@ -33,6 +33,6 @@ exports.conf = {
 exports.help = {
 	name: 'kick',
 	description: 'Kicks a mentionned user.',
-	usage: '<user:user> <reason:str>',
+	usage: '<user:user> <reason:str> [...]',
 	usageDelim: ' '
 };

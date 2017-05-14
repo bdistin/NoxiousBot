@@ -1,6 +1,6 @@
 const { RichEmbed } = require('discord.js');
 
-exports.run = (client, msg, [user, ...reason]) => {
+exports.run = async (client, msg, [user, ...reason]) => {
 	const confs = client.funcs.confs.get(msg.guild);
 
 	if (!confs.logChannel) return msg.channel.sendMessage('You must set the logChannel conf to use this command.');
@@ -15,12 +15,12 @@ exports.run = (client, msg, [user, ...reason]) => {
 	if (typeof user === 'string') {
 		if (/^<@!?\d+>$/.test(user)) user = /\d+/.exec(user)[0];
 		embed.setAuthor(`[${user}]`);
-		return msg.guild.ban(user)
+		return msg.guild.ban(user, { reason: reason.join(' ') })
 			.then(() => client.channels.get(confs.logChannel).sendEmbed(embed))
 			.catch(err => msg.reply(`There was an error trying to ban ${user.username}: ${err}`));
 	} else if (!msg.guild.member(user).roles.exists('name', confs.modRole) && !msg.guild.member(user).roles.exists('name', confs.adminRole) && user.id !== client.user.id) {
 		embed.setAuthor(`${user.username} #${user.discriminator} [${user.id}]`, user.avatarURL);
-		return msg.guild.member(user).ban()
+		return msg.guild.member(user).ban({ days: 7, reason: reason.join(' ') })
 			.then(() => client.channels.get(confs.logChannel).sendEmbed(embed))
 			.catch(err => msg.reply(`There was an error trying to ban ${user.username}: ${err}`));
 	} else {
@@ -30,7 +30,7 @@ exports.run = (client, msg, [user, ...reason]) => {
 
 exports.conf = {
 	enabled: true,
-	guildOnly: true,
+	runIn: ['text'],
 	aliases: ['b'],
 	permLevel: 2,
 	botPerms: ['BAN_MEMBERS'],
@@ -40,6 +40,6 @@ exports.conf = {
 exports.help = {
 	name: 'ban',
 	description: 'Bans a mentionned user.',
-	usage: '<user:user|id:str> <reason:str>',
+	usage: '<user:user|id:str> <reason:str> [...]',
 	usageDelim: ' '
 };

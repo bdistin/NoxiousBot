@@ -1,16 +1,17 @@
 {
-	"name": "NoxiousBot",
-	"version": "0.1.0",
-	"description": "",
-	"main": "app.js",
-	"scripts": {
-		"start": "forever app.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "",
-	"license": "MIT",
-	"dependencies": {
-		"child-process-promise": "^2.2.0",
-		"komada": "^0.10.0"
-	}
+  "name": "NoxiousBot",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "forever app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "child-process-promise": "^2.2.0",
+    "komada": "dirigeants/komada#indev",
+    "superagent": "^3.5.2"
+  }
 }

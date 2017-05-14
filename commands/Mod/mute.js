@@ -1,6 +1,6 @@
 const { RichEmbed } = require('discord.js');
 
-exports.run = (client, msg, [user, ...reason]) => {
+exports.run = async (client, msg, [user, ...reason]) => {
 	const confs = client.funcs.confs.get(msg.guild);
 
 	if (!confs.logChannel) return msg.channel.sendMessage('You must set the logChannel conf to use this command.');
@@ -29,7 +29,7 @@ exports.run = (client, msg, [user, ...reason]) => {
 
 exports.conf = {
 	enabled: true,
-	guildOnly: true,
+	runIn: ['text'],
 	aliases: ['m'],
 	permLevel: 2,
 	botPerms: ['MANAGE_ROLES_OR_PERMISSIONS'],
@@ -39,6 +39,6 @@ exports.conf = {
 exports.help = {
 	name: 'mute',
 	description: 'Mutes a mentionned user.',
-	usage: '<user:user> <reason:str>',
+	usage: '<user:user> <reason:str> [...]',
 	usageDelim: ' '
 };
