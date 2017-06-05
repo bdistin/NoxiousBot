@@ -3,13 +3,13 @@ const { RichEmbed } = require('discord.js');
 exports.run = async (client, msg, [user, ...reason]) => {
 	const confs = client.funcs.confs.get(msg.guild);
 
-	if (!confs.logChannel) return msg.channel.sendMessage('You must set the logChannel conf to use this command.');
+	if (!confs.logChannel) return msg.sendMessage('You must set the logChannel conf to use this command.');
 
 	const embed = new RichEmbed()
 		.setColor(200)
-		.setAuthor(`${user.username} #${user.discriminator} [${user.id}]`, user.avatarURL)
+		.setAuthor(`${user.username} #${user.discriminator} [${user.id}]`, user.avatarURL())
 		.setTimestamp()
-		.setFooter('Mick', client.user.avatarURL)
+		.setFooter('Mick', client.user.avatarURL())
 		.addField('__**Responsible Mod**__', `${msg.author.username} #${msg.author.discriminator}`)
 		.addField('__**Reason**__', `${reason.join(' ')}\n\u200b`);
 	if (!msg.guild.member(user).roles.exists('name', confs.modRole) && !msg.guild.member(user).roles.exists('name', confs.adminRole) && user.id !== client.user.id) {
@@ -23,7 +23,7 @@ exports.run = async (client, msg, [user, ...reason]) => {
 			})
 			.catch(err => msg.reply(`There was an error trying to mute ${user.username}: ${err}`));
 	} else {
-		return msg.channel.sendMessage('Say What?!?');
+		return msg.sendMessage('Say What?!?');
 	}
 };
 

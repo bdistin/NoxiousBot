@@ -6,9 +6,9 @@ exports.run = (client, member) => {
 	if (confs.logChannel) {
 		const embed = new RichEmbed()
 			.setColor(200 * 256)
-			.setAuthor(`${member.user.username} #${member.user.discriminator} [${member.user.id}]`, member.user.avatarURL)
+			.setAuthor(`${member.user.username} #${member.user.discriminator} [${member.user.id}]`, member.user.avatarURL())
 			.setTimestamp()
-			.setFooter('Joined', client.user.avatarURL);
+			.setFooter('Joined', client.user.avatarURL());
 		client.channels.get(confs.logChannel).sendEmbed(embed);
 	}
 };

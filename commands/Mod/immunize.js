@@ -1,4 +1,4 @@
-const request = require('superagent');
+const request = require('snekfetch');
 
 exports.run = async (client, msg) => {
 	let i = 0;
@@ -11,7 +11,7 @@ exports.run = async (client, msg) => {
 			i++;
 		}
 	});
-	msg.channel.sendMessage(`Immunized against ${i} new threats.`);
+	msg.sendMessage(`Immunized against ${i} new threats.`);
 };
 
 exports.conf = {

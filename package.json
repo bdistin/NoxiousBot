@@ -10,8 +10,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "child-process-promise": "^2.2.0",
-    "komada": "dirigeants/komada#indev",
-    "superagent": "^3.5.2"
+    "discord.js": "github:hydrabolt/discord.js",
+    "komada": "github:dirigeants/komada#indev"
   }
 }
