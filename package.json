@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
+    "fs-nextra": "github:bdistin/fs-nextra",
     "komada": "github:dirigeants/komada#indev"
   }
 }
