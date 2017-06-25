@@ -10,7 +10,8 @@ exports.conf = {
 	aliases: ['p'],
 	permLevel: 2,
 	botPerms: ['READ_MESSAGE_HISTORY'],
-	requiredFuncs: []
+	requiredFuncs: [],
+	requiredSettings: []
 };
 
 exports.help = {
