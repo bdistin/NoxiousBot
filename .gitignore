@@ -10,3 +10,5 @@ config\.json
 commands/Emergency/kickstart\.js
 
 events/presenceUpdate\.js
+
+src/events/presenceUpdate\.js

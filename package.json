@@ -2,16 +2,15 @@
   "name": "NoxiousBot",
   "version": "0.1.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "forever app.js",
+    "start": "forever src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "github:hydrabolt/discord.js",
-    "fs-nextra": "github:bdistin/fs-nextra",
-    "komada": "github:dirigeants/komada#indev"
+    "klasa": "github:dirigeants/klasa",
+    "snekfetch": "^3.2.4"
   }
 }
