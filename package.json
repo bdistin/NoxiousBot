@@ -12,5 +12,8 @@
   "dependencies": {
     "klasa": "github:dirigeants/klasa",
     "snekfetch": "^3.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0"
   }
 }

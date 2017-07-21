@@ -24,7 +24,7 @@ module.exports = class extends Command {
 			.addField('__**Reason**__', `${reason}\n\u200b`);
 
 		if (typeof user === 'string') {
-			if (/^<@!?\d+>$/.test(user)) user = /\d+/.exec(user)[0];
+			if (/^<@!?\d+>$/.test(user)) [user] = /\d+/.exec(user);
 			embed.setAuthor(`[${user}]`);
 			return msg.guild.ban(user, { reason: reason })
 				.then(() => this.client.channels.get(msg.guildSettings.logChannel).sendEmbed(embed))
