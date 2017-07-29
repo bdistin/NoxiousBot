@@ -10,6 +10,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "jsdoc": "github:jsdoc3/jsdoc#master",
+    "jsdoc-strip-async-await": "^0.1.0",
+    "jsdoc-to-markdown": "^3.0.0",
     "klasa": "github:dirigeants/klasa",
     "snekfetch": "^3.2.4"
   },

@@ -12,3 +12,21 @@ commands/Emergency/kickstart\.js
 events/presenceUpdate\.js
 
 src/events/presenceUpdate\.js
+
+jsdocs\.json
+
+jsdoc\.json
+
+package-lock\.json
+
+src/conf\.json
+
+src/configuration\.json
+
+src/documentation/
+
+src/commands/Klasa/
+
+docs/
+
+repos/

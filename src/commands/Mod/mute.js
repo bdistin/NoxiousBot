@@ -10,32 +10,33 @@ module.exports = class extends Command {
 			botPerms: ['MANAGE_ROLES'],
 			requiredSettings: ['logChannel', 'muteRole', 'modRole', 'adminRole'],
 			description: 'Mutes a mentionned user.',
-			usage: '<user:user> <reason:str>',
+			usage: '<user:member> <reason:str> [...]',
 			usageDelim: ', '
 		});
 	}
 
-	async run(msg, [user, reason]) {
+	async run(msg, [member, ...reason]) {
+		reason = reason.join(this.usageDelim);
+
 		const embed = new this.client.methods.Embed()
 			.setColor(200)
-			.setAuthor(`${user.username} #${user.discriminator} [${user.id}]`, user.avatarURL())
+			.setAuthor(`${member.user.tag} [${member.id}]`, member.user.avatarURL())
 			.setTimestamp()
 			.setFooter('Mute', this.client.user.avatarURL())
 			.addField('__**Responsible Mod**__', `${msg.author.username} #${msg.author.discriminator}`)
 			.addField('__**Reason**__', `${reason}\n\u200b`);
-		if (!msg.guild.member(user).roles.has(msg.guildSettings.modRole.id) && !msg.guild.member(user).roles.has(msg.guildSettings.adminRole.id) && user.id !== this.client.user.id) {
-			return msg.guild.member(user).addRole(msg.guildSettings.muteRole)
-				.then(() => {
-					this.client.channels.get(msg.guildSettings.logChannel).sendEmbed(embed);
-					this.client.setTimeout(() => {
-						msg.guild.member(user).removeRole(msg.guildSettings.muteRole)
-							.catch(err => msg.reply(`There was an error trying to un-mute ${user.username}: ${err}`));
-					}, 600000);
-				})
-				.catch(err => msg.reply(`There was an error trying to mute ${user.username}: ${err}`));
-		} else {
-			return msg.sendMessage('Say What?!?');
-		}
+
+		if (member.roles.has(msg.guildSettings.modRole) || member.roles.has(msg.guildSettings.adminRole) || !member.bannable) return msg.sendMessage('Say What?!?');
+
+		return member.addRole(msg.guildSettings.muteRole)
+			.then(() => {
+				this.client.channels.get(msg.guildSettings.logChannel).sendEmbed(embed);
+				this.client.setTimeout(() => {
+					member.removeRole(msg.guildSettings.muteRole)
+						.catch(err => msg.reply(`There was an error trying to un-mute ${member.user.username}: ${err}`));
+				}, 600000);
+			})
+			.catch(err => msg.reply(`There was an error trying to mute ${member.user.username}: ${err}`));
 	}
 
 };
